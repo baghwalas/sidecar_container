@@ -1,2 +1,11 @@
 # sidecar_container
-Lab to show how sidecar containers work
+In Kubernetes, the sidecar pattern makes use of Pod one of the centrepiece of Kubernetecs ecosystem. As the containers hosted on the same pod share the same network address and filesystem. All containers on the same pod can connect to each other through the localhost address the same way processes communicate with each other over HTTP on the same machine. Therefore, we can create a pod that hosts the main application, through the application container, and add a sidecar container on the same pod that provides an extra layer of functionality. Containers on the same pod are treated as one unit: they’re created, destroyed, and moved from one node to another together.Also sidecar containers allow you to change the behaviour of an application without changing its code
+So how does sidecar-container work?. A "traditional" container provides several forms of isolation which is facilated by Linux namespaces and control groups (cgroups).
+Resource isolation (for example, memory limits).
+Process isolation.
+Filesystem and mount isolation.
+Network isolation.
+Control groups are a convenient way to limit resources such as CPU or memory that a particular process can use.As an example, you could say that your process should use only 2GB of memory and one of your four CPU cores.Namespaces, on the other hand, are in charge of isolating the process and limiting what it can see.As an example, the process can only see the network packets that are directly related to it.It won't be able to see all of the network packets flowing through the network adapter.Or you could isolate the filesystem and let the process believe that it has access to all of it.On Kubernetes, a container provides all of those forms of isolation except network isolation.Instead, network isolation happens at the pod level.In other words, each container in a pod will have its filesystem, process table, etc., but all of them will share the same network namespace.
+The following are some of the use cases for sidecar containers
+Adding a HTTPS layer using a webservers (Apache/Nginx) to a application that natively supports HTTP only. 
+Providing a frontend reverse proxy for uWSGI applications (for example, Python Flask).
