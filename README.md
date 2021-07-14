@@ -9,3 +9,8 @@ Control groups are a convenient way to limit resources such as CPU or memory tha
 The following are some of the use cases for sidecar containers
 Adding a HTTPS layer using a webservers (Apache/Nginx) to a application that natively supports HTTP only. 
 Providing a frontend reverse proxy for uWSGI applications (for example, Python Flask).
+The Sidecar Pattern entails designing modular containers. A modular container can be plugged in more than one place with minimal changes.
+A sidecar is just a container that runs on the same Pod as the application container, because it shares the same volume and network as the main container, it can “help” or enhance how the application operates.
+Common examples of sidecar containers are log shippers, log watchers, monitoring agents among others.
+Having a separate container for auxiliary tasks gives you access to health checks, automatic restart and other functionality offered by Kubernetes for containers.
+When following the Sidecar Pattern, you should consider making a small sidecar container that does not consume many resources. If you find that the sidecar container logic is getting more complex and/or becoming more tightly coupled with the main application container, it may better be integrated with the main application’s code instead. Remember, the strong point of a sidecar container lies in its ability to be small and pluggable.
